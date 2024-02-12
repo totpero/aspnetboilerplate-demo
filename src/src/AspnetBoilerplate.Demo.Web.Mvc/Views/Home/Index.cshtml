@@ -1,0 +1,45 @@
+﻿@using AspnetBoilerplate.Demo.Web.Startup
+@{
+    ViewBag.Title = L("HomePage");
+    ViewBag.CurrentPageName = PageNames.Home;
+}
+
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/libs/chartjs/dist/Chart.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Views/Home/Index.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/_Bundles/home-index.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-12">
+                <h1 class="m-0 text-dark">@L("HomePage")</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+<div class="container-fluid">
+<div class="row">
+    <div class="col-12">
+        <div class="alert alert-info alert-dismissible">
+            <h6><i class="icon fa fa-info"></i> This is a sample Dashboard which doesn't show any server side data. However, you can develop your own dashboard inspired by this one and its source code.</h6>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <button id="TestDateAndTime" type="button" class="btn btn-sm btn-info float-left">Test Date and Time</button>
+
+    </div>
+</div>
+
+</div>
+</section>
