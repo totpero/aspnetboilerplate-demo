@@ -16,8 +16,10 @@ using AspnetBoilerplate.Demo.Identity;
 using AspnetBoilerplate.Demo.Web.Resources;
 using Abp.AspNetCore.SignalR.Hubs;
 using Abp.Json;
+using AspnetBoilerplate.Demo.ModelBinders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.WebEncoders;
+using Newtonsoft.Json.Serialization;
 
 namespace AspnetBoilerplate.Demo.Web.Startup
 {
