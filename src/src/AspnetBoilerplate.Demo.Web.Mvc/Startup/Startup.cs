@@ -1,5 +1,4 @@
 ﻿using System.Text.Encodings.Web;
-using System.Text.Json;
 using System.Text.Unicode;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,9 +15,9 @@ using AspnetBoilerplate.Demo.Configuration;
 using AspnetBoilerplate.Demo.Identity;
 using AspnetBoilerplate.Demo.Web.Resources;
 using Abp.AspNetCore.SignalR.Hubs;
-using Abp.Json.SystemTextJson;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.WebEncoders;
+using Abp.Json;
 
 namespace AspnetBoilerplate.Demo.Web.Startup
 {
@@ -45,38 +44,38 @@ namespace AspnetBoilerplate.Demo.Web.Startup
                 )
                 .AddRazorRuntimeCompilation()
 
-                .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-                    options.JsonSerializerOptions.Converters.Add(new CultureInvariantDecimalJsonConverter());
-                    options.JsonSerializerOptions.Converters.Add(new CultureInvariantNullableDecimalJsonConverter());
-                    options.JsonSerializerOptions.Converters.Add(new CultureInvariantDoubleJsonConverter());
-                    options.JsonSerializerOptions.Converters.Add(new CultureInvariantNullableDoubleJsonConverter());
-
-                    options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
-
-                    options.JsonSerializerOptions.Converters.Add(new AbpNullableDateTimeConverter());
-                    options.JsonSerializerOptions.Converters.Add(new AbpDateTimeConverter());
-                })
-
-                //.AddNewtonsoftJson(options =>
+                //.AddJsonOptions(options =>
                 //{
-                //    options.SerializerSettings.ContractResolver = new AbpCamelCasePropertyNamesContractResolver();
+                //    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                //    options.JsonSerializerOptions.Converters.Add(new CultureInvariantDecimalJsonConverter());
+                //    options.JsonSerializerOptions.Converters.Add(new CultureInvariantNullableDecimalJsonConverter());
+                //    options.JsonSerializerOptions.Converters.Add(new CultureInvariantDoubleJsonConverter());
+                //    options.JsonSerializerOptions.Converters.Add(new CultureInvariantNullableDoubleJsonConverter());
 
-                //    //@todo: the 9.0 old method
-                //    //options.SerializerSettings.ContractResolver = new DefaultContractResolver
-                //    //{
-                //    //    NamingStrategy = new CamelCaseNamingStrategy()
-                //    //};
-                //    //options.SerializerSettings.Converters.Add(new OldDateTimeJsonConverter());
+                //    options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
 
-                //    options.SerializerSettings.Converters.Add(new CultureInvariantDecimalConverter());
-                //    options.SerializerSettings.Converters.Add(new CultureInvariantDoubleConverter());
-
-                //    options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
-                //    //options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
-
+                //    options.JsonSerializerOptions.Converters.Add(new AbpNullableDateTimeConverter());
+                //    options.JsonSerializerOptions.Converters.Add(new AbpDateTimeConverter());
                 //})
+
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ContractResolver = new AbpCamelCasePropertyNamesContractResolver();
+
+                    //@todo: the 9.0 old method
+                    //options.SerializerSettings.ContractResolver = new DefaultContractResolver
+                    //{
+                    //    NamingStrategy = new CamelCaseNamingStrategy()
+                    //};
+                    //options.SerializerSettings.Converters.Add(new OldDateTimeJsonConverter());
+
+                    options.SerializerSettings.Converters.Add(new CultureInvariantDecimalConverter());
+                    options.SerializerSettings.Converters.Add(new CultureInvariantDoubleConverter());
+
+                    options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+                    //options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
+
+                })
                 ;
 
             IdentityRegistrar.Register(services);
